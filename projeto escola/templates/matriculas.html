@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<h2>Matrículas</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Aluno</th>
+      <th>Curso</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for m in matriculas %}
+      <tr>
+        <td>{{ m.aluno }}</td>
+        <td>{{ m.curso }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

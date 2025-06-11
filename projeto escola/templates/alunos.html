@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>Lista de Alunos</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Visualizações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for aluno in alunos %}
+      <tr>
+        <td>{{ aluno.id }}</td>
+        <td>{{ aluno.title }}</td>
+        <td>{{ aluno.views }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
