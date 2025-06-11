@@ -15,8 +15,16 @@
         <td>{{ aluno.id }}</td>
         <td>{{ aluno.title }}</td>
         <td>{{ aluno.views }}</td>
+        <td>
+  <a href="{{ url_for('editar_aluno', id=aluno.id) }}" class="btn btn-sm btn-warning">Editar</a>
+  <form action="{{ url_for('deletar_aluno', id=aluno.id) }}" method="POST" style="display:inline;">
+    <button class="btn btn-sm btn-danger" onclick="return confirm('Deseja realmente excluir?');">Excluir</button>
+  </form>
+</td>
+
       </tr>
     {% endfor %}
   </tbody>
+  <a href="{{ url_for('novo_aluno') }}" class="btn btn-primary mb-3">Novo Aluno</a>
 </table>
 {% endblock %}

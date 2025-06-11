@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>{{ 'Editar' if aluno else 'Novo' }} Aluno</h2>
+
+<form method="POST">
+  <div class="mb-3">
+    <label for="title" class="form-label">Nome</label>
+    <input type="text" class="form-control" id="title" name="title" value="{{ aluno.title if aluno else '' }}" required>
+  </div>
+  <div class="mb-3">
+    <label for="views" class="form-label">Visualizações</label>
+    <input type="number" class="form-control" id="views" name="views" value="{{ aluno.views if aluno else 0 }}">
+  </div>
+  <button type="submit" class="btn btn-success">Salvar</button>
+  <a href="{{ url_for('listar_alunos') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

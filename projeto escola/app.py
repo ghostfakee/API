@@ -4,6 +4,7 @@ from flask import make_response
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 import io
+from flask import request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -104,6 +105,36 @@ def gerar_relatorio():
 
     except Exception as e:
         return f"Erro ao gerar relatório: {e}"
+    
+@app.route('/alunos/novo', methods=['GET', 'POST'])
+def novo_aluno():
+    if request.method == 'POST':
+        novo = {
+            "title": request.form['title'],
+            "views": int(request.form['views'])
+        }
+        requests.post(f"{API_URL}/Aluno", json=novo)
+        return redirect(url_for('listar_alunos'))
+    return render_template('aluno_form.html', aluno=None)
+
+# Editar aluno
+@app.route('/alunos/editar/<id>', methods=['GET', 'POST'])
+def editar_aluno(id):
+    if request.method == 'POST':
+        atualizado = {
+            "title": request.form['title'],
+            "views": int(request.form['views'])
+        }
+        requests.put(f"{API_URL}/Aluno/{id}", json=atualizado)
+        return redirect(url_for('listar_alunos'))
+    aluno = requests.get(f"{API_URL}/Aluno/{id}").json()
+    return render_template('aluno_form.html', aluno=aluno)
+
+# Deletar aluno
+@app.route('/alunos/deletar/<id>', methods=['POST'])
+def deletar_aluno(id):
+    requests.delete(f"{API_URL}/Aluno/{id}")
+    return redirect(url_for('listar_alunos'))
 
 
 if __name__ == '__main__':
